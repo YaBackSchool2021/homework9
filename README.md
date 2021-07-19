@@ -29,13 +29,13 @@ print(monotonic(), "finished")
 -------------
 
 1. Сделать fork репозитория. Например, пользователь `v-pupkin` делает fork 
-   `v-pupkin/homework11` 
+   `v-pupkin/homework9` 
 2. В своем форке сделать ветку, например `feature/async-await-support`
 3. В ветку внести все, необходимые изменения, и закомитить одним или 
    несколькими комитами
 4. Создать pull request в репозитории-forkе на ветку master. Например: 
-   `v-pupkin/homework11:feature/async-await-support` > 
-   `v-pupkin/homework11:master`
+   `v-pupkin/homework9:feature/async-await-support` > 
+   `v-pupkin/homework9:master`
 5. Проверяться будет именно pull request, поэтому сдавать необходимо ссылку 
    на него
 6. Ссылку на pull request необходимо приложить в соответствующий тикет в 
