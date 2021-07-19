@@ -38,3 +38,6 @@ print(monotonic(), "finished")
    `v-pupkin/homework11:master`
 5. Проверяться будет именно pull request, поэтому сдавать необходимо ссылку 
    на него
+6. Ссылку на pull request необходимо приложить в соответствующий тикет в 
+   очереди в Трекере (https://tracker.yandex.ru/SHBRHOMEWORK).
+
