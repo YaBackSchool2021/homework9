@@ -36,3 +36,5 @@ print(monotonic(), "finished")
 4. Создать pull request в репозитории-forkе на ветку master. Например: 
    `v-pupkin/homework11:feature/async-await-support` > 
    `v-pupkin/homework11:master`
+5. Проверяться будет именно pull request, поэтому сдавать необходимо ссылку 
+   на него
