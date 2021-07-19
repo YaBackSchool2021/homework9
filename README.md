@@ -23,3 +23,16 @@ loop.create_task(test())
 loop.run_until_complete(test())
 print(monotonic(), "finished")
 ```
+
+
+Порядок сдачи
+-------------
+
+1. Сделать fork репозитория. Например, пользователь `v-pupkin` делает fork 
+   `v-pupkin/homework11` 
+2. В своем форке сделать ветку, например `feature/async-await-support`
+3. В ветку внести все, необходимые изменения, и закомитить одним или 
+   несколькими комитами
+4. Создать pull request в репозитории-forkе на ветку master. Например: 
+   `v-pupkin/homework11:feature/async-await-support` > 
+   `v-pupkin/homework11:master`
