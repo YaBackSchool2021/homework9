@@ -1,9 +1,9 @@
 import heapq
 import logging
-from typing import Set, Callable, Any
+from typing import Any, Callable, NamedTuple, Set
 from time import monotonic
 from queue import SimpleQueue
-from functools import partial
+from functools import partial, total_ordering
 
 
 class Future:
@@ -41,6 +41,18 @@ class Future:
         return self.get_result()
 
 
+@total_ordering
+class TimedContainer(NamedTuple):
+    time: float
+    value: Any
+
+    def __lt__(self, other):
+        return self.time < other.time
+
+    def __eq__(self, other):
+        return self.time == other.time
+
+
 class CallbackHandler:
     def __init__(self):
         self.heap = []
@@ -49,10 +61,12 @@ class CallbackHandler:
         future = Future()
         heapq.heappush(
             self.heap,
-            (
+            TimedContainer(
                 delay + monotonic(),    # absolute time
-                future,                 # result future
-                partial(func, *args)    # callable
+                (
+                    future,                 # result future
+                    partial(func, *args)    # callable
+                )
             )
         )
         return future
@@ -61,7 +75,7 @@ class CallbackHandler:
         while self.heap:
             if self.heap[0][0] > monotonic():
                 return
-            soon, future, func = heapq.heappop(self.heap)
+            future, func = heapq.heappop(self.heap).value
             try:
                 future.set_result(func())
             except Exception as e:
