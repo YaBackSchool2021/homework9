@@ -34,11 +34,25 @@ class Future:
         if self.exception:
             raise self.exception
         return self.result
-        
+
     def __iter__(self):
         while not self.done:
             yield None
         return self.get_result()
+
+
+class HeapFuture:
+    def __init__(self, absolute_time, result_future, callable_future):
+        self.absolute_time = absolute_time
+        self.result_future = result_future
+        self.callable_future = callable_future
+        self.data = (self.absolute_time, self.result_future, self.callable_future)
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def __gt__(self, other: "HeapFuture"):
+        return self.absolute_time > other.absolute_time
 
 
 class CallbackHandler:
@@ -49,7 +63,7 @@ class CallbackHandler:
         future = Future()
         heapq.heappush(
             self.heap,
-            (
+            HeapFuture(
                 delay + monotonic(),    # absolute time
                 future,                 # result future
                 partial(func, *args)    # callable
@@ -61,7 +75,7 @@ class CallbackHandler:
         while self.heap:
             if self.heap[0][0] > monotonic():
                 return
-            soon, future, func = heapq.heappop(self.heap)
+            soon, future, func = heapq.heappop(self.heap).data
             try:
                 future.set_result(func())
             except Exception as e:
