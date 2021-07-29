@@ -1,5 +1,6 @@
 import heapq
-from typing import Set, Callable
+import logging
+from typing import Set, Callable, Any
 from time import monotonic
 from queue import SimpleQueue
 from functools import partial
@@ -31,7 +32,7 @@ class Future:
 
     def get_result(self):
         if self.exception:
-            raise self.exeption
+            raise self.exception
         return self.result
         
     def __iter__(self):
